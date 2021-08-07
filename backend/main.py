@@ -11,7 +11,8 @@ dates for DJ Joe Services.
 ################################################################################
 
 # Requirements
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -23,9 +24,12 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Main Application Response
-@app.get("/")
-async def root():
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
     return templates.TemplateResponse(
-        "item.html",
-        {"fastapi_token": "Hello World"},
+        "index.html",
+        {
+            "request": request,
+            "fastapi_token": "Hello World"
+        },
     )
