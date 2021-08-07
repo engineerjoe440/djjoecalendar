@@ -1,15 +1,5 @@
 .App {
   text-align: center;
-  /* The image used */
-  background-image: url("https://static.wixstatic.com/media/9cb155_0d4be62c27554bbf9178a1c1b3445caf.jpg/v1/fill/w_980,h_591,al_t,q_85,usm_0.66_1.00_0.01/9cb155_0d4be62c27554bbf9178a1c1b3445caf.webp");
-
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .App-logo {
@@ -19,13 +9,13 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 50px;
   padding: 20px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .App-intro {

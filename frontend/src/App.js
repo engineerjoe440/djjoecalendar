@@ -47,8 +47,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>{this.state.error}</p>
-        <p>My Token = {window.token}</p>
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
