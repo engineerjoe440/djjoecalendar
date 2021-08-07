@@ -27,5 +27,5 @@ templates = Jinja2Templates(directory="templates")
 async def root():
     return templates.TemplateResponse(
         "item.html",
-        {},
+        {"fastapi_token": "Hello World"},
     )
