@@ -16,15 +16,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class DatePeriod(BaseModel):
-    start_year: str
-    start_month: str
-    start_day: str
-    end_year: str
-    end_month: str
-    end_day: str
+    start: datetime
+    end: datetime
 
 # Application Base
 app = FastAPI()
@@ -50,5 +47,13 @@ async def availability(dates: DatePeriod):
     with open("./foo.txt", 'w') as f:
         f.write(str(dates.__dict__))
     return {
-        "events": [],
+        "events": [
+            {
+                'title': "Available!",
+                'start': datetime.now(),
+                'end': datetime.now(),
+                'allDay': True,
+                'resource': '',
+            }
+        ],
     }
