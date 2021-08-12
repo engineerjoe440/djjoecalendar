@@ -12,6 +12,7 @@ dates for DJ Joe Services.
 
 import datetime
 import os.path
+from date_support import daterange
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -23,6 +24,11 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 def google_calendar_service_available():
     """Quickly Determines if Token is Available for Google Calendar System."""
     return os.path.exists('token.json')
+
+def get_google_datetime(google_dt_dict):
+    """Performs dictionary-specific handling to attempt extraction of dt."""
+    google_dt = google_dt_dict.get('dateTime', google_dt_dict.get('date'))
+    return google_dt.split("T")[0]
 
 def get_service():
     """Gets a handle to the Google Calendar Service."""
@@ -61,6 +67,33 @@ def get_event_list(start: datetime.datetime, end: datetime.datetime):
                                           orderBy='startTime').execute()
     return events_result.get('items', [])
 
+def get_occupied_dates(start: datetime.datetime, end: datetime.datetime):
+    """Generates a list of single dt objects representing occupied dates."""
+    events = get_event_list(start=start, end=end)
+    occupied_dates = []
+
+    # Iteratively process each event
+    for event in events:
+        start_date = datetime.datetime.strptime(
+            get_google_datetime(event['start']),
+            "%Y-%m-%d",
+        )
+        end = event.get('end')
+        if end != None:
+            end_date = get_google_datetime(end)
+            if end_date != None:
+                end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+                for date in daterange(start_date, end_date):
+                    # Append all dates in range
+                    occupied_dates.append(date)
+            else:
+                # Append only start date
+                occupied_dates.append(start_date)
+        else:
+            # Append only start date
+            occupied_dates.append(start_date)
+    
+    return occupied_dates
 
 
 if __name__ == '__main__':
@@ -71,3 +104,5 @@ if __name__ == '__main__':
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
         print(start, event['summary'])
+    
+    print(get_occupied_dates(now, now + datetime.timedelta(days=30)))
