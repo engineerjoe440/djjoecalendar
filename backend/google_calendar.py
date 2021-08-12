@@ -12,7 +12,7 @@ dates for DJ Joe Services.
 
 import datetime
 import os.path
-from date_support import daterange
+from date_support import daterange, _clean_dates, _restore_datetimes
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -54,12 +54,15 @@ def get_service():
 
     return service
 
+def googlify_datetimes(dts):
+    dts = _restore_datetimes(_clean_dates(dts))
+    return [dt.isoformat()+"Z" for dt in dts]
+
 def get_event_list(start: datetime.datetime, end: datetime.datetime):
     """Identifies a list of all events in the specified date range."""
     service = get_service()
 
-    start = start.isoformat() + 'Z' # 'Z' indicates UTC time
-    end = end.isoformat() + 'Z'
+    start, end = googlify_datetimes([start, end])
 
     # Call the Calendar API
     events_result = service.events().list(calendarId='primary', timeMin=start,
@@ -69,6 +72,8 @@ def get_event_list(start: datetime.datetime, end: datetime.datetime):
 
 def get_occupied_dates(start: datetime.datetime, end: datetime.datetime):
     """Generates a list of single dt objects representing occupied dates."""
+    if not google_calendar_service_available():
+        return [] # Bail Out without Attempting Connection
     events = get_event_list(start=start, end=end)
     occupied_dates = []
 

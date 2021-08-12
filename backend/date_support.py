@@ -14,12 +14,7 @@ from datetime import timedelta, datetime
 
 def daterange(date1, date2):
     """Iterator over a range of days specified between the two dates."""
-    adder = 1
-    # Look for "All-Day" Events (Whose Trailing Day Needs to Be Removed)
-    if hasattr(date1, 'time'):
-        if str(date1.time()) == "00:00:00":
-            adder = 0
-    for n in range(int ((date2 - date1).days)+adder):
+    for n in range(int ((date2 - date1).days)+1):
         yield date1 + timedelta(n)
 
 def weekends_in_range(start, end):
