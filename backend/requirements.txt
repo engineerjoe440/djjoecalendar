@@ -2,3 +2,6 @@ fastapi
 aiofiles
 jinja2
 uvicorn
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
