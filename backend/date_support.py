@@ -21,8 +21,14 @@ def weekends_in_range(start, end):
     """Generate a list of the weekend days in the range specified."""
     weekdays = [0,1,2,3,4] # 0 is Monday
     weekend_days = []
+    today = datetime(*datetime.today().timetuple()[:3], tzinfo=start.tzinfo)
+    # Determine Month of Interest
+    if (start.day > 1) and (end.month > start.month + 1):
+        start = datetime(start.year, start.month+1, 1, tzinfo=start.tzinfo)
     for dt in daterange(start, end):
-        if dt.weekday() not in weekdays:
+        if dt.month > start.month:
+            break
+        if dt.weekday() not in weekdays and dt > today:
             weekend_days.append(dt)
     return weekend_days
 

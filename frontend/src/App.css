@@ -40,7 +40,7 @@
   width: 100px;
 }
 
-.App .rbc-toolbar button:focus, .rbc-toolbar button:hover {
+.App .rbc-toolbar button:hover {
   color: #ffffff;
   background-color: rgba(171, 5, 53, 0.808);
   border-color: rgba(171, 5, 53, 0.808);
@@ -67,7 +67,7 @@
 .App .rbc-day-bg {
   flex: 1 0;
   color: white;
-  background-color: rgba(156, 151, 173, 0.795);
+  background-color: rgba(156, 151, 173, 0.884);
 }
 
 .App div.rbc-day-bg.rbc-off-range-bg {
@@ -93,7 +93,7 @@
   box-shadow: none;
   margin: 0;
   padding: 2px 5px;
-  background-color: rgba(67, 67, 70, 0.795);
+  background-color: rgba(109, 2, 32, 0.356);
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
