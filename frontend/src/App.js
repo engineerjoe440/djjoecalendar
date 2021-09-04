@@ -6,18 +6,29 @@ import moment from "moment";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+// Function to help secure usage of `_blank`
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
+
+// Localizer
 const localizer = momentLocalizer(moment);
-const availDate = (_) => toast((t) => (
+
+// Available Date Callback
+const availDate = (eventInfo) => {
+  console.log(eventInfo)
+}/*toast((t) => (
     <span>
       That date is available! {'  '}
-      <button onClick={() => toast.dismiss(t.id)}>Snag It!</button>
+      <button onClick={() => openInNewTab('https://www.djjoeidaho.com/contact-us?subject=')}>Snag It!</button>
     </span>
   ),
   {
     icon: <CheckmarkIcon />,
     duration: 10000,
   }
-);
+);*/
 
 class App extends Component {
   constructor(props) {

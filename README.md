@@ -15,3 +15,19 @@ queries relating to available dates.
 With some minor modifications made to the FastAPI configuration,
 [this guide on using Flask and React](https://blog.learningdollars.com/2019/11/29/how-to-serve-a-reactapp-with-a-flask-server/)
 was used to develop the link between the two ecosystems.
+
+## Rebuilding React Components for Serving
+
+From the `frontend` directory, issue the following command:
+
+```shell
+npm run build
+```
+
+## Running Server for Development
+
+From the `backend` directory, issue the following command:
+
+```shell
+uvicorn main:app --reload
+```
