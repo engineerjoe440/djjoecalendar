@@ -3,4 +3,4 @@ aiofiles
 jinja2
 uvicorn
 requests
-yaml
+pyyaml
