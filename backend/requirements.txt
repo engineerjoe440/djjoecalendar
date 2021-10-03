@@ -1,6 +1,6 @@
 fastapi
 aiofiles
 jinja2
-uvicorn
 requests
 pyyaml
+uvicorn[standard]
