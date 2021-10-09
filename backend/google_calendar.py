@@ -55,6 +55,11 @@ def get_event_list(start: datetime.datetime, end: datetime.datetime):
     if resp.status_code == 200:
         return resp.json().get('items', [])
     else:
+        print(
+            "GOOGLE REQUEST FAILED:",
+            resp.status_code,
+            resp.reason,
+        )
         return []
 
 def get_occupied_dates(start: datetime.datetime, end: datetime.datetime):
@@ -87,11 +92,9 @@ def get_occupied_dates(start: datetime.datetime, end: datetime.datetime):
 
 
 if __name__ == '__main__':
-    now = datetime.datetime.now()
+    now = datetime.datetime.now() - datetime.timedelta(days=20)
     events = get_event_list(now, now + datetime.timedelta(days=30))
-    if not events:
-        print('No upcoming events found.')
     for event in events:
         print(event['start'].get('dateTime', event['start'].get('date')))
-    
-    print(get_occupied_dates(now, now + datetime.timedelta(days=30)))
+    else:
+        print("NO EVENTS FOUND")

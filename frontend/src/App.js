@@ -15,20 +15,24 @@ const openInNewTab = (url) => {
 // Localizer
 const localizer = momentLocalizer(moment);
 
+const subjectDate = (eventDate) => {
+  return encodeURIComponent(eventDate.split("T")[0] + " Event Quote Request")
+}
+
 // Available Date Callback
-const availDate = (eventInfo) => {
-  console.log(eventInfo)
-}/*toast((t) => (
+const availDate = (eventInfo) => toast((t) => (
     <span>
       That date is available! {'  '}
-      <button onClick={() => openInNewTab('https://www.djjoeidaho.com/contact-us?subject=')}>Snag It!</button>
+      <button onClick={() => openInNewTab(
+        'https://www.djjoeidaho.com/contact-us?subject=' + subjectDate(eventInfo.start)
+      )}>Snag It!</button>
     </span>
   ),
   {
     icon: <CheckmarkIcon />,
     duration: 10000,
   }
-);*/
+);
 
 class App extends Component {
   constructor(props) {
