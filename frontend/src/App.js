@@ -43,9 +43,6 @@ class App extends Component {
       events: []
     };
 
-    // Make Default Request
-    //this.requestAvailableDates({});
-
     // Bind Class Method
     this.requestAvailableDates = this.requestAvailableDates.bind(this);
   }
