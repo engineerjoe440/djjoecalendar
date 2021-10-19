@@ -32,10 +32,19 @@ def googlify_datetimes(dts):
     dts = _restore_datetimes(_clean_dates(dts))
     return [dt.isoformat()+"Z" for dt in dts]
 
-def get_google_datetime(google_dt_dict):
+def get_google_date(google_dt_dict):
     """Performs dictionary-specific handling to attempt extraction of dt."""
     google_dt = google_dt_dict.get('dateTime', google_dt_dict.get('date'))
     return google_dt.split("T")[0]
+
+def get_google_time(google_dt_dict):
+    """Performs dictionary-specific handling to attempt extraction of dt."""
+    google_dt = google_dt_dict.get('dateTime', google_dt_dict.get('date'))
+    try:
+        timestring = google_dt.split("T")[1].split('-')[0]
+    except IndexError:
+        timestring = "00:00:00"
+    return timestring
 
 ################################################################################
 # Event Listing Functions
@@ -70,13 +79,14 @@ def get_occupied_dates(start: datetime.datetime, end: datetime.datetime):
     # Iteratively process each event
     for event in events:
         start_date = datetime.datetime.strptime(
-            get_google_datetime(event['start']),
+            get_google_date(event['start']),
             "%Y-%m-%d",
         )
         end = event.get('end')
         if end != None:
-            end_date = get_google_datetime(end)
-            if end_date != None:
+            end_date = get_google_date(end)
+            end_time = datetime.datetime.strptime(get_google_time(end), "%H:%M:%S")
+            if end_date != None and end_time.hour != 0:
                 end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
                 for date in daterange(start_date, end_date):
                     # Append all dates in range
@@ -96,5 +106,10 @@ if __name__ == '__main__':
     events = get_event_list(now, now + datetime.timedelta(days=30))
     for event in events:
         print(event['start'].get('dateTime', event['start'].get('date')))
-    else:
+    if len(events) == 0:
+        print("NO EVENTS FOUND")
+    events = get_occupied_dates(now, now + datetime.timedelta(days=30))
+    for event in events:
+        print("event", event)
+    if len(events) == 0:
         print("NO EVENTS FOUND")

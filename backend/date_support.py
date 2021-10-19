@@ -83,8 +83,5 @@ if __name__ == "__main__":
         datetime(2022, 11, 27),
         datetime(2022, 12, 31),
     )
-    excluded = weekends_in_range(
-        datetime(2022, 12, 10),
-        datetime(2022, 12, 11),
-    )
+    excluded = [datetime(2022, 12, 10)]
     print(remove_excluded_dates(included, excluded))
