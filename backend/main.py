@@ -34,7 +34,7 @@ templates = Jinja2Templates(directory="templates")
 
 # Available Date List Generator
 def generate_available_dates(dates: DatePeriod):
-    print(dates.end)
+    print(dates.start, dates.end)
     # Identify Available Date Information
     included_dates = weekends_in_range(start=dates.start, end=dates.end)
     excluded_dates = get_occupied_dates(start=dates.start, end=dates.end)
