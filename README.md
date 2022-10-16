@@ -31,3 +31,14 @@ From the `backend` directory, issue the following command:
 ```shell
 uvicorn main:app --reload
 ```
+
+---
+
+## Deploying
+1. Clone/Pull repo contents down to server
+2. Verify installation of Nginx/Docker/docker-compose
+3. Configure Nginx to route to the container
+4. Configure the required environment variables for Google Calendar in a `.env` file:
+  * `GOOGLE_API_KEY=<api-key>`
+5. Run Docker container with docker-compose
+  * `docker-compose up -d --build`

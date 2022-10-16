@@ -1,9 +1,24 @@
+# Build the Frontend
+FROM node:latest AS uibuilder
+
+WORKDIR /uibuild
+
+COPY ./frontend /uibuild
+
+RUN yarn install
+RUN npm audit fix || true
+RUN npm run build
+
+
 # Dockerfile for DJJoe Calendar App
 FROM python:3.9
 
 WORKDIR /server
 
 COPY ./backend /server
+
+# Copy React Files
+COPY --from=uibuilder /backend /server
 
 RUN pip install --no-cache-dir --upgrade -r /server/requirements.txt
 
