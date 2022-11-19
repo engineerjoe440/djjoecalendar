@@ -10,15 +10,16 @@ dates for DJ Joe Services.
 """
 ################################################################################
 
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
-BACKEND_ROOT = Path(__file__).parent.parent / Path("backend")
+BACKEND_ROOT = str(Path(__file__).parent.parent / Path("backend"))
 
 sys.path.insert(0, BACKEND_ROOT)
 
-from date_support import weekends_in_range
+from date_support import weekends_in_range, remove_excluded_dates
 
 def test_verify_excluded():
     included = weekends_in_range(
