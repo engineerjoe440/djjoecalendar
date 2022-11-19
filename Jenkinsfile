@@ -9,8 +9,22 @@ node ('djjoeappserv') {
     // Build in the DJ Joe Application Server
     checkout scm
 
+    testPython()
+
     buildContainer()
 
+}
+
+
+// Test Python Scripts
+def testPython() {
+
+    // Install Python Requirements
+    sh "python3 -m pip install --upgrade --no-cache-dir -r test/pytest-requires.txt"
+
+    // Run Tests
+    sh "python3 -m pytest"
+    
 }
 
 

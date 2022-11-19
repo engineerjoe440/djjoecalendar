@@ -14,10 +14,10 @@ from datetime import timedelta, datetime
 
 GLOBAL_UNAVAIL_DATES = [
     # MONTH  -  DAY
-    [1,         1],
-    [12,        24],
-    [12,        25],
-    [12,        31],
+    [1,         1],  # New Year's Day
+    [12,        24], # Christmas Eve
+    [12,        25], # Christmas Day
+    [12,        31], # New Year's Eve
 ]
 
 def daterange(date1, date2):
@@ -69,19 +69,4 @@ def remove_excluded_dates(inclusive_dates, exclude_dates):
     exclude_dates = _clean_dates(exclude_dates)
     return _restore_datetimes(list(set(inclusive_dates) - set(exclude_dates)))
 
-if __name__ == "__main__":
-    included = weekends_in_range(
-        datetime(2021, 12, 26),
-        datetime(2022, 2, 5),
-    )
-    excluded = weekends_in_range(
-        datetime(2022, 1, 15),
-        datetime(2022, 1, 16),
-    )
-    print(remove_excluded_dates(included, excluded))
-    included = weekends_in_range(
-        datetime(2022, 11, 27),
-        datetime(2022, 12, 31),
-    )
-    excluded = [datetime(2022, 12, 10)]
-    print(remove_excluded_dates(included, excluded))
+# END
