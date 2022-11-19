@@ -18,13 +18,13 @@ node ('djjoeappserv') {
 
 // Test Python Scripts
 def testPython() {
+    stage("Test Python") {
+        // Install Python Requirements
+        sh "python3 -m pip install --upgrade --no-cache-dir -r test/pytest-requires.txt"
 
-    // Install Python Requirements
-    sh "python3 -m pip install --upgrade --no-cache-dir -r test/pytest-requires.txt"
-
-    // Run Tests
-    sh "python3 -m pytest"
-    
+        // Run Tests
+        sh "python3 -m pytest"
+    }
 }
 
 
