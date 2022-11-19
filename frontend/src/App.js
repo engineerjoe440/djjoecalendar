@@ -49,7 +49,7 @@ class App extends Component {
 
   requestAvailableDates(props) {
     // Make POST Request with JSON Payload
-    fetch("/api/getavailability", {
+    fetch("/api/v1/getavailability", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
