@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/css/main.13f4caeb.css",
+    "main.js": "/js/main.cedf1653.js",
+    "../../templates/index.html": "/../../templates/index.html",
+    "main.13f4caeb.css.map": "/css/main.13f4caeb.css.map",
+    "main.cedf1653.js.map": "/js/main.cedf1653.js.map"
+  },
+  "entrypoints": [
+    "css/main.13f4caeb.css",
+    "js/main.cedf1653.js"
+  ]
+}

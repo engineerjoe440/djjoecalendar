@@ -84,7 +84,7 @@ async def availability(dates: DatePeriod):
     return {"events": generate_available_dates(dates=dates)}
 
 # Background Photo Endpoint
-@app.get("/background")
+@app.get("/background.jpg")
 async def background_url():
     """Redirect Endpoint to Point to the Background Image."""
     RedirectResponse(url=os.getenv(BACKGROUND_VAR, "/static/stanleysolutions.jpg"))
