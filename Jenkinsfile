@@ -18,7 +18,7 @@ node ('x86-32-build') {
 
         testPython()
 
-        buildContainer()
+        buildContainer("i386.Dockerfile")
 
         pushContainer()
     }
@@ -38,9 +38,9 @@ def testPython() {
 
 
 // Build the Application
-def buildContainer() {
+def buildContainer(dockerfile) {
     stage("Build Container") {
-        sh "docker build -t engineerjoe440/full-page-calendar:latest ."
+        sh "docker build -t engineerjoe440/full-page-calendar:latest -f ${dockerfile} ."
     }
 }
 
